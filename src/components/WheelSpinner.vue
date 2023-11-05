@@ -3,8 +3,8 @@
     <p class="counter" v-if="counting">{{ counter }}</p>
     <p class="counter-placeholder" v-if="!counting">0</p>
     <button class="wheel-button" :disabled="isButtonDisabled" @click="generateRandomNumber">Click for today's gift!</button>
-    <div style="margin-top: 100px;">
     <h1 class="opened-numbers">Opened Numbers</h1>
+    <div>
     <div style="display: flex; gap: 20px; flex-wrap: wrap; justify-content: center;">  
       <div v-for="prizes in removedItems" :key="prizes.id" :class="{ showNumber: showNumber }" class="present">
     <div class="lid">
@@ -124,7 +124,8 @@ export default {
 }
 
 .opened-numbers {
-  font-family: 'Playpen Sans', cursive;
+  font-family: 'Festive', cursive;
+  color: white;
   margin: 100px 0;
 }
 
@@ -135,6 +136,7 @@ export default {
   color: white;
   height: 50px;
   font-family: 'Playpen Sans', cursive;
+  cursor: pointer;
 } 
 .showNumber {
   animation: fade-in 5s;
