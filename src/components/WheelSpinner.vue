@@ -1,7 +1,7 @@
 <template>
   <div>
     <div v-for="item in wheelArray" :key="item.id">
-      <h1 style="color:red">{{ item.name }}</h1>
+      <h1 style="color:red; position: absolute;">{{ item.id }}</h1>
     </div>
     <div v-for="prizes in removedItems" :key="prizes.id">
       <h1> {{ prizes.name }}</h1>
@@ -31,15 +31,11 @@ export default {
       if (this.isButtonDisabled) {
         return;
       }
-      var chosenOne = Math.floor(Math.random() * this.randomNumber);
-      console.log(chosenOne, 'working',this.removedItems, this.randomNumber);
       
-      // Find the index of the matching item in wheelArray
-      const index = this.wheelArray.findIndex(item => item.id === chosenOne);
-      
-      if (index !== -1) {
-        // If a match is found, remove the item from wheelArray and add it to removedItems
-        const removedItem = this.wheelArray.splice(index, 1)[0];
+      const chosenOne = Math.floor(Math.random() * this.randomNumber);
+
+      if (chosenOne >= 0 && chosenOne < this.wheelArray.length) {
+        const removedItem = this.wheelArray.splice(chosenOne, 1)[0];
         this.randomNumber -= 1;
         this.removedItems.push(removedItem);
         localStorage.setItem("removedItems", JSON.stringify(this.removedItems));
@@ -48,6 +44,7 @@ export default {
         this.isButtonDisabled = true;
       }
     },
+
     checkForNewDay() {
       const currentDate = new Date().toLocaleDateString();
       if (currentDate !== this.currentDate) {
